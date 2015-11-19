@@ -1,0 +1,13 @@
+{% load i18n %}
+{% trans "Aktywuj konto na" %} {{ site.name }}:
+
+Witaj w BudGET!
+
+Kliknij w poniższy link aby aktywować konto.
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+
+{% blocktrans %}Powyższy link jest aktywny przez {{ expiration_days }} dni.{% endblocktrans %}
+
+-Filip Lipiński twórca strony :)

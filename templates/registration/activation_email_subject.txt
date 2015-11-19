@@ -1,0 +1,1 @@
+{% load i18n %}{% trans "Aktywuj konto na" %} Zakończ rejestracje na {{ site.name }}

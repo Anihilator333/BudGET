@@ -1,0 +1,25 @@
+{% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <!--<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+     <!-- <img src="{% static "my_app/myexample.jpg" %}" alt="=My image"/> -->
+
+    <!-- Custom styles for this template -->
+    <!--<link href="navbar-static-top.css" rel="stylesheet"> -->
+    <link href="{% static 'navbar-static-top.css' %}" rel="stylesheet">
+    <style>
+    .text-align-center{
+        text-align: center; background-color: #E8E8E8;  border-radius: 10px;
+    }
+    .btn-main{
+        color: #000000;  background-color: #ff6500;  border-width: 3px;  border-color: #000000;  }
+    .btn-main:hover{
+        color: #000000;  background-color: #ff944d;  border-width: 3px;  border-color: #000000;  }
+    .btn-main.focus,.btn-main:focus{color:#000000;   background-color:#ff6500;   border-color:#000000;  }
+    .btn-main.active, .btn-main:active{color: #000000;  background-color: #ff6500;  border-width: 3px;  border-color: #000000;  }
+    .navbar-static-top{  margin-bottom: 0px; border-color: black }
+    .navbar-default .navbar-nav>li>a {  color: #000000;  }
+    .navbar-default .navbar-nav>li>a:hover {  color: #777777;}
+    .navbar-default .navbar-toggle{border-color: #080808;}
+    </style>

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Kontakt |{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        {% if title %}
+        <h1 class="text-align-center">{{ title }}</h1>
+        {% endif %}
+    <form method="POST" action="">{% csrf_token %}
+        {{ form|crispy }}
+        <h5 class="text-align-center" style="font-style: italic">Jeśli nie chcesz używać formularza wystarczy wysłać maila na adres: filip.marek.lipinski@gmail.com</h5>
+        <input class="btn btn-default btn-main" type="submit" value="Wyślij">
+    </form>
+    </div>
+</div>
+{% endblock %}

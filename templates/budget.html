@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head_title %}Zestawienie |{% endblock %}
+
+{% block content %}
+
+<h2 class="text-align-center">Twój budżet przedstawia się następująco:</h2>
+    <div class="text-align-center">
+        <p class="lead">Twoje bieżące wpływy do budżetu wynoszą: {{ suma_dochodow }} zł</p>
+        <p class="lead">Twoje wydatki na chwilę obecną wynoszą: {{ suma_wydatkow }} zł</p>
+    </div>
+    <div class="text-align-center">
+        {% if suma_wydatkow > suma_dochodow %}
+        <p class="lead" style="color: #cd4540">Przekroczyłeś swoje dochody na ten miesiąc. Aktualne saldo wynosi: {{ saldo }} zł</p>
+        {% else %}
+        <p class="lead" style="color: limegreen">Twój budżet na tą chwilę jest dodatni. Tak trzymaj! Aktualne saldo wynosi: {{ saldo }} zł</p>
+        {% endif %}
+    </div>
+    {% if saldo > 1000 %}
+        <div class="text-align-center">
+            <p>Z mojej analizy wynika, że ten miesiąc jest dla Ciebie wyjątkowo owocny.</p>
+            <p class="lead">Może czas pomyśleć o oszczędnościach?</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

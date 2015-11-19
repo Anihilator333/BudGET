@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head_title %}Wylogowano |{% endblock %}
+
+{% block content %}
+<p class='text-align-center lead'>Udało Ci się poprawnie wylogować.</p>
+<p class='text-align-center lead'><a href="{% url 'auth_login' %}">Zaloguj ponownie</a></p>
+<p class='text-align-center lead'><a href="/" >Wróć do strony domowej</a></p>
+{% endblock %}

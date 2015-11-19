@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<nav class="navbar navbar-default navbar-static-top" style="border: 3px;border-color: #080808; background-color: #ff6500;">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" style="color: #000000"><strong>BudGET</strong></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><img src="{% static 'img\BGET.bmp' %}" style="height: 50px;"/></li>
+            <li><a class="black-font" href="/">Home <i class="fa fa-home fa-fw"></i></a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'incomes' %}">Dochody <i class="fa fa-plus-square"></i></a></li>
+            <li><a href="{% url 'expenses' %}">Wydatki <i class="fa fa-minus-square"></i></a></li>
+            <li><a href="{% url 'budget' %}">Budzet <i class="fa fa-bar-chart"></i></a></li>
+            <li><a href="{% url 'savings' %}">Oszczędności <i class="fa fa-usd"></i></a></li>
+            {% endif %}
+            <li><a href="{% url 'contact' %}">Kontakt <i class="fa fa-paper-plane fa-fw"></i></a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if request.user.is_authenticated %}
+            <li><a>Zalogowany jako: {{ request.user }}</a></li>
+            <li><a href="{% url 'auth_logout' %}">Wyloguj się</a></li>
+            {% else %}
+            <li><a href="{% url 'auth_login' %}">Zaloguj się</a></li>
+            <li><a href="{% url 'registration_register' %}">Zarejestruj się</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
