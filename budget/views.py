@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings
+from django import forms
 
 from .forms import SignUpForm, ContactForm, AddIncomeForm, AddExpensesForm
-from .models import Dochod, Wydatek
+from .models import Dochod, Wydatek, Waluta
+
 
 def home(request):
     title = "Welcome!!"
@@ -58,13 +60,25 @@ def contact(request):
     return render(request, "forms.html", context)
 
 def incomes(request):
-    form = AddIncomeForm(request.POST or None)
+    form = AddIncomeForm(request.POST or None, initial={'użytkownik': request.user})
+    form.fields['użytkownik'].widget = forms.HiddenInput()
 
     title = 'Budżet: Dodaj dochód'
     suma = 0
-    queryIncomes = Dochod.objects.all().filter(użytkownik__iexact=request.user).order_by('-data_dodania').filter(data_dodania__range=["2015-11-01", "2015-11-30"])
-    for instance in Dochod.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-11-01", "2015-11-30"]):
-        suma += instance.kwota
+    queryIncomes = Dochod.objects.all().filter(użytkownik__iexact=request.user).order_by('-data_dodania').filter(data_dodania__range=["2015-12-01", "2015-12-31"])
+    for instance in Dochod.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-12-01", "2015-12-31"]):
+        if instance.waluta == "zł":
+            suma += instance.kwota
+        elif instance.waluta == "dolar":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="dolar"):
+                suma += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "euro":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="euro"):
+                suma += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "funt":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="funt"):
+                suma += waluta.przelicznik * instance.kwota
+
     form.Meta.fields.insert(0, request.user)
     context = {
         'form': form,
@@ -80,13 +94,24 @@ def incomes(request):
     return render(request, "incomes.html", context)
 
 def expenses(request):
-    form = AddExpensesForm(request.POST or None)
-
+    form = AddExpensesForm(request.POST or None, initial={'użytkownik': request.user})
+    form.fields['użytkownik'].widget = forms.HiddenInput()
     title = 'Budżet: Dodaj wydatek'
     suma = 0
-    queryExpenses = Wydatek.objects.all().filter(użytkownik__iexact=request.user).order_by('-data_dodania').filter(data_dodania__range=["2015-11-01", "2015-11-30"])
-    for instance in Wydatek.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-11-01", "2015-11-30"]):
-        suma += instance.kwota
+    queryExpenses = Wydatek.objects.all().filter(użytkownik__iexact=request.user).order_by('-data_dodania').filter(data_dodania__range=["2015-12-01", "2015-12-31"])
+    for instance in Wydatek.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-12-01", "2015-12-31"]):
+        if instance.waluta == "zł":
+            suma += instance.kwota
+        elif instance.waluta == "dolar":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="dolar"):
+                suma += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "euro":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="euro"):
+                suma += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "funt":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="funt"):
+                suma += waluta.przelicznik * instance.kwota
+
     context = {
         'form': form,
         'title': title,
@@ -101,12 +126,33 @@ def expenses(request):
 def budget(request):
     suma_dochodow = 0
     suma_wydatkow = 0
-    for instance in Dochod.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-11-01", "2015-11-30"]):
-        suma_dochodow += instance.kwota
-    for instance in Wydatek.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-11-01", "2015-11-30"]):
-        suma_wydatkow += instance.kwota
+    for instance in Dochod.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-12-01", "2015-12-31"]):
+        if instance.waluta == "zł":
+            suma_dochodow += instance.kwota
+        elif instance.waluta == "dolar":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="dolar"):
+                suma_dochodow += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "euro":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="euro"):
+                suma_dochodow += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "funt":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="funt"):
+                suma_dochodow += waluta.przelicznik * instance.kwota
+    for instance in Wydatek.objects.all().filter(użytkownik__iexact=request.user).filter(data_dodania__range=["2015-12-01", "2015-12-31"]):
+        if instance.waluta == "zł":
+            suma_wydatkow += instance.kwota
+        elif instance.waluta == "dolar":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="dolar"):
+                suma_wydatkow += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "euro":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="euro"):
+                suma_wydatkow += waluta.przelicznik * instance.kwota
+        elif instance.waluta == "funt":
+            for waluta in Waluta.objects.all().filter(waluta__iexact="funt"):
+                suma_wydatkow += waluta.przelicznik * instance.kwota
 
     saldo = suma_dochodow - suma_wydatkow
+
     context = {
         'suma_dochodow': suma_dochodow,
         'suma_wydatkow': suma_wydatkow,

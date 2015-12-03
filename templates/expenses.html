@@ -11,18 +11,10 @@
         {% if title %}
         <h1 class="text-align-center">{{ title }}</h1>
         {% endif %}
-        <div class="text-align-center" style="font-style: italic">
-        <p>Jeśli chcesz aby twój wydatek mógł być przypisany do tego konta w polu 'Użytkownik' wpisz swoją nazwę użytkownika.</p>
-        <p>Jest ona widoczna w prawym górnym rogu panelu.</p>
-        </div>
     <form method="POST" action="">{% csrf_token %}
         {{ form|crispy }}
         <h5 class="text-align-center" style="font-style: italic">* - wymagane pola</h5>
-        <input class="btn btn-primary btn-main" type="submit" value="Dodaj" style="padding-left: 60px; padding-right: 60px">
-        <input class="btn btn-default btn-main" value="Wyczyść"
-               onclick="document.querySelector('#id_użytkownik').value = '';
-               document.querySelector('#id_kategoria').value = '';
-               document.querySelector('#id_kwota').value = '';">
+        <input class="btn btn-lg btn-block btn-primary btn-main" type="submit" value="Dodaj">
     </form>
     </div>
 </div>
@@ -30,9 +22,9 @@
 <div class="row">
     <h2 class="text-align-center">Twoje wydatki w tym miesiącu </h2>
     <table class="table">
-    <tr><td>Lp</td><td>Kategoria wydatku</td><td>Kwota wydatku[zł]</td><td>Data dodania wydatku</td></tr>
+    <tr><td>Lp</td><td>Kategoria wydatku</td><td>Kwota wydatku</td><td>Waluta</td><td>Data dodania wydatku</td></tr>
     {% for instance in queryExpenses %}
-            <tr><td>{{ forloop.counter }}</td><td>{{ instance.kategoria }}</td><td>{{ instance.kwota }}</td><td> {{ instance.data_dodania }}</td></tr>
+            <tr><td>{{ forloop.counter }}</td><td>{{ instance.kategoria }}</td><td>{{ instance.kwota }}</td><td>{{ instance.waluta }}</td><td> {{ instance.data_dodania }}</td></tr>
     {% endfor %}
     </table>
 </div>

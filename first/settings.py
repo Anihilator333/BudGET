@@ -28,10 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'yourgmail@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_HOST_USER = 'root.budzet@gmail.com'
+EMAIL_HOST_PASSWORD = 'tajnehaslo'
 EMAIL_PORT = 587
-EMAIL_usE_TLS = True
+EMAIL_USE_TLS = True
 
 # Application definition
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     #third party apps
     'crispy_forms',
     'registration',
+    'PIL',
     # my apps
     'budget',
 )
@@ -128,6 +129,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 #Django Registration Redux Settings
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_EMAIL_HTML = False
 
 SITE_ID = 1
 

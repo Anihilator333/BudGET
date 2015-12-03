@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('budget', '0003_income'),
+        ('budget', '0003_auto_20151203_2106'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='income',
-            name='użytkownik',
-            field=models.CharField(max_length=50),
+            model_name='waluta',
+            name='przelicznik',
+            field=models.DecimalField(decimal_places=4, max_digits=10),
         ),
     ]

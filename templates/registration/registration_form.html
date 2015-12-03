@@ -11,17 +11,15 @@
   {% csrf_token %}
   {{ form|crispy }}
 
-  <input class='btn btn-block btn-primary btn-main' type="submit" value="{% trans 'Dołącz' %} &curarr;" />
+  <input class='btn btn-lg btn-block btn-primary btn-main' type="submit" href="/" value="{% trans 'Dołącz' %} &curarr;" />
 </form>
 </div>
 </div>
 
 <hr/>
-<div class='row'>
-<div class='col-sm-6 col-sm-offset-3 text-align-center'>
-<p>Chcesz się <a href="{% url 'auth_login' %}">zalogować</a>?</p>
-</div>
-</div>
+
+<p class="lead col-sm-6 col-sm-offset-3 text-align-center">Chcesz się <a href="{% url 'auth_login' %}">zalogować</a>?</p>
+
 
 
 {% endblock %}
